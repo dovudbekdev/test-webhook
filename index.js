@@ -128,16 +128,14 @@ app.get("/test", (req, res) => {
   });
 });
 
-app.use(
-  "/webhook",
-  (req, res, next) => {
-    if (req.method === "POST") {
-      console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
-    }
-    next();
-  },
-  bot.webhookCallback("/webhook")
-);
+app.use((req, res, next) => {
+  if (req.path === "/webhook" && req.method === "POST") {
+    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+  }
+  next();
+});
+
+app.use(bot.webhookCallback("/webhook"));
 
 app.get("/", (req, res) => res.send("OK"));
 
