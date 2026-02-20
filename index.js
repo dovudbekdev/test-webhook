@@ -128,16 +128,18 @@ app.get("/test", (req, res) => {
   });
 });
 
-app.post(
+app.use(
   "/webhook",
   (req, res, next) => {
-    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+    if (req.method === "POST") {
+      console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+    }
     next();
   },
   bot.webhookCallback("/webhook")
 );
 
-// app.get("/", (req, res) => res.send("OK"));
+app.get("/", (req, res) => res.send("OK"));
 
 app.listen(PORT, async () => {
   console.log(`[server] 🚀 Server ${PORT} portda ishga tushdi`);
@@ -150,6 +152,3 @@ app.listen(PORT, async () => {
     console.error("[webhook] ❌ Webhook sozlashda xato:", err.message);
   }
 });
-
-
-// https://api.telegram.org/bot8485424555:AAH595YpGl1tFz22AY-8CsrX3cet_6YDkPM/getWebhookInfo
