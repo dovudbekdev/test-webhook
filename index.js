@@ -150,3 +150,6 @@ app.listen(PORT, async () => {
     console.error("[webhook] ❌ Webhook sozlashda xato:", err.message);
   }
 });
+
+
+// https://api.telegram.org/bot8485424555:AAH595YpGl1tFz22AY-8CsrX3cet_6YDkPM/getWebhookInfo
