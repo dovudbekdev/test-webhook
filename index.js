@@ -120,13 +120,6 @@ Kategoriya: ${st.category}`,
 });
 
 // ===== WEBHOOK SETUP =====
-// app.use((req, res, next) => {
-//   if (req.path === "/webhook" && req.method === "POST") {
-//     console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
-//   }
-//   next();
-// });
-
 app.get("/test", (req, res) => {
   res.json({
     ok: true,
@@ -135,8 +128,14 @@ app.get("/test", (req, res) => {
   });
 });
 
-
-app.use(bot.webhookCallback("/webhook"));
+app.post(
+  "/webhook",
+  (req, res, next) => {
+    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+    next();
+  },
+  bot.webhookCallback("/webhook")
+);
 
 // app.get("/", (req, res) => res.send("OK"));
 
