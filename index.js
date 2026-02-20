@@ -130,7 +130,9 @@ app.get("/test", (req, res) => {
 
 app.use((req, res, next) => {
   if (req.path === "/webhook" && req.method === "POST") {
-    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+    console.log(
+      `[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`,
+    );
   }
   next();
 });
@@ -146,10 +148,21 @@ app.listen(PORT, async () => {
     //   `${BASE_URL}/webhook?secret=${WEBHOOK_SECRET}`
     // );
 
-    await bot.launch(()=>{
-      console.log("Bot running");
-    })
-    console.log(`[webhook] ✅ Webhook ro'yxatdan o'tkazildi: ${BASE_URL}/webhook`);
+    await bot.launch(
+      {
+        webhook: {
+          domain: BASE_URL,
+          path: "/webhook",
+          port: PORT,
+        },
+      },
+      () => {
+        console.log("Bot running");
+      },
+    );
+    console.log(
+      `[webhook] ✅ Webhook ro'yxatdan o'tkazildi: ${BASE_URL}/webhook`,
+    );
   } catch (err) {
     console.error("[webhook] ❌ Webhook sozlashda xato:", err.message);
   }
