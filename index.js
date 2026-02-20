@@ -127,7 +127,7 @@ Kategoriya: ${st.category}`,
 //   next();
 // });
 
-app.get("/webhook", (req, res) => {
+app.get("/test", (req, res) => {
   res.json({
     ok: true,
     message: "Webhook endpoint ishlayapti. POST so'rovlarni Telegram yuboradi.",
@@ -138,7 +138,7 @@ app.get("/webhook", (req, res) => {
 
 app.use(bot.webhookCallback("/webhook"));
 
-app.get("/", (req, res) => res.send("OK"));
+// app.get("/", (req, res) => res.send("OK"));
 
 app.listen(PORT, async () => {
   console.log(`[server] 🚀 Server ${PORT} portda ishga tushdi`);
