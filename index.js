@@ -153,7 +153,7 @@ app.listen(PORT, async () => {
         webhook: {
           domain: BASE_URL,
           path: "/webhook",
-          port: PORT,
+          // port: PORT,
         },
       },
       () => {
