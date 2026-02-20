@@ -120,12 +120,22 @@ Kategoriya: ${st.category}`,
 });
 
 // ===== WEBHOOK SETUP =====
-app.use((req, res, next) => {
-  if (req.path === "/webhook" && req.method === "POST") {
-    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
-  }
-  next();
+// app.use((req, res, next) => {
+//   if (req.path === "/webhook" && req.method === "POST") {
+//     console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+//   }
+//   next();
+// });
+
+app.get("/webhook", (req, res) => {
+  res.json({
+    ok: true,
+    message: "Webhook endpoint ishlayapti. POST so'rovlarni Telegram yuboradi.",
+    method: "GET (tekshirish uchun). Asl update'lar POST orqali keladi.",
+  });
 });
+
+
 app.use(bot.webhookCallback("/webhook"));
 
 app.get("/", (req, res) => res.send("OK"));
