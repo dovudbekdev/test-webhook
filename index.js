@@ -120,16 +120,24 @@ Kategoriya: ${st.category}`,
 });
 
 // ===== WEBHOOK SETUP =====
+app.use((req, res, next) => {
+  if (req.path === "/webhook" && req.method === "POST") {
+    console.log(`[webhook] 📥 Yangi update qabul qilindi (${new Date().toISOString()})`);
+  }
+  next();
+});
 app.use(bot.webhookCallback("/webhook"));
 
 app.get("/", (req, res) => res.send("OK"));
 
 app.listen(PORT, async () => {
-  await bot.telegram.setWebhook(
-    `${BASE_URL}/webhook?secret=${WEBHOOK_SECRET}`
-  );
-
-  // await bot.launch(() => {
-  //   console.log("Bot running");
-  // });
+  console.log(`[server] 🚀 Server ${PORT} portda ishga tushdi`);
+  try {
+    await bot.telegram.setWebhook(
+      `${BASE_URL}/webhook?secret=${WEBHOOK_SECRET}`
+    );
+    console.log(`[webhook] ✅ Webhook ro'yxatdan o'tkazildi: ${BASE_URL}/webhook`);
+  } catch (err) {
+    console.error("[webhook] ❌ Webhook sozlashda xato:", err.message);
+  }
 });
