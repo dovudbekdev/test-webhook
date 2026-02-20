@@ -154,6 +154,7 @@ app.listen(PORT, async () => {
           domain: BASE_URL,
           path: "/webhook",
           // port: PORT,
+          secretToken: WEBHOOK_SECRET,
         },
       },
       () => {
