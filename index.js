@@ -137,7 +137,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(bot.webhookCallback("/webhook"));
+app.use(bot.webhookCallback("/webhook"));
 
 app.get("/", (req, res) => res.send("OK"));
 
