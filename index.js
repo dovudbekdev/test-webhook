@@ -135,16 +135,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bot.webhookCallback("/webhook"));
+// app.use(bot.webhookCallback("/webhook"));
 
 app.get("/", (req, res) => res.send("OK"));
 
 app.listen(PORT, async () => {
   console.log(`[server] 🚀 Server ${PORT} portda ishga tushdi`);
   try {
-    await bot.telegram.setWebhook(
-      `${BASE_URL}/webhook?secret=${WEBHOOK_SECRET}`
-    );
+    // await bot.telegram.setWebhook(
+    //   `${BASE_URL}/webhook?secret=${WEBHOOK_SECRET}`
+    // );
+
+    await bot.launch(()=>{
+      console.log("Bot running");
+    })
     console.log(`[webhook] ✅ Webhook ro'yxatdan o'tkazildi: ${BASE_URL}/webhook`);
   } catch (err) {
     console.error("[webhook] ❌ Webhook sozlashda xato:", err.message);
